@@ -25,17 +25,24 @@ sudo pip install docker-compose
 docker-compose --version
 ```
 
-# Copy the pruned block data.
+# Setup PI Environment.
 A fresh PI is not capable of holding the entire unpruned Bitcoin blockchain.
 Instead, we copy over pruned block data.
 
-...
+1. Clone this Git repo
+1. Copy the pruned block data into bitcoind/data
+1. Set ENV vars for the containers.
+
+```bash
+git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
+mkdir -p bitcoind/data && ...
+export RPCUSER=<your username> && export RPCPASS=<your password>
+```
 
 # Compose the Backend.
 
-1. Compose 
+1. Compose
 
 ```bash
 sudo docker-compose up
-
 ```
