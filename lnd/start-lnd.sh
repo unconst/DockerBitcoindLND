@@ -64,7 +64,7 @@ PARAMS="$PARAMS $@"
 echo "Command: lnd $PARAMS"
 
 # Sleep 10, wait for Bitcoind to start up.
-sleep 10
+sleep 30
 
 # Run LND deamon
 exec lnd $PARAMS
