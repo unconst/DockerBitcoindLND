@@ -29,11 +29,6 @@ services:
             - DEBUG
         entrypoint: ["./start-lnd.sh"]
 
-networks:
-  default:
-    external:
-      name: mybridge
-
 volumes:
   # bitcoin volume is needed for maintaining blockchain persistence
   # during bitcoind container recreation.
