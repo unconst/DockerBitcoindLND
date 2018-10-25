@@ -62,5 +62,9 @@ PARAMS="$PARAMS $@"
 
 # Print command and start bitcoin node.
 echo "Command: lnd $PARAMS"
+
+# Sleep 10, wait for Bitcoind to start up.
 sleep 10
+
+# Run LND deamon
 exec lnd $PARAMS

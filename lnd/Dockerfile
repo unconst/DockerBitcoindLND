@@ -1,7 +1,6 @@
 FROM alpine
 
 # Install LND
-
 RUN apk update \
 	&& apk --no-cache add wget ca-certificates tar \
 	&& wget https://github.com/lightningnetwork/lnd/releases/download/v0.5-beta/lnd-linux-armv7-v0.5-beta.tar.gz \
