@@ -1,0 +1,41 @@
+version: '2'
+services:
+
+    # btc is an image of bitcoin node which used as base image for btcd and
+    # btccli. The environment variables default values determined on stage of
+    # container start within starting script.
+    bitcoind_service:
+        image: bitcoind_image
+        build:
+            context: bitcoind/
+        container_name: bitcoind_container
+        volumes:
+            - bitcoind_volume:/data
+        environment:
+            - RPCUSER
+            - RPCPASS
+        entrypoint: ["./start-bitcoind.sh"]
+
+    lnd_service:
+        image: lnd_image
+        build:
+            context: lnd/
+        container_name: lnd_container
+        depends_on:
+            - bitcoind_service
+        environment:
+            - RPCUSER
+            - RPCPASS
+            - DEBUG
+        entrypoint: ["./start-lnd.sh"]
+
+networks:
+  default:
+    external:
+      name: mybridge
+
+volumes:
+  # bitcoin volume is needed for maintaining blockchain persistence
+  # during bitcoind container recreation.
+  bitcoind_volume:
+    driver: local
