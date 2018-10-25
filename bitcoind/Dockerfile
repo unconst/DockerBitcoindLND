@@ -1,19 +1,6 @@
-FROM alpine
+FROM frolvlad/alpine-glibc
 
-# Taking care of glibc shit (glibc not natively supported by Alpine but Bitcoin Core uses it)
-
-ENV GLIBC_VERSION 2.27-r0
-# Download and install glibc (https://github.com/jeanblanchard/docker-alpine-glibc/blob/master/Dockerfile)
-RUN apk add --update --no-cache wget \
- && wget -O glibc.apk "https://github.com/yangxuan8282/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk" \
- && wget -O glibc-bin.apk "https://github.com/yangxuan8282/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk" \
- && apk add --allow-untrusted --update --no-cache glibc-bin.apk glibc.apk \
- && /usr/glibc-compat/sbin/ldconfig /lib /usr/glibc-compat/lib \
- && echo 'hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4' >> /etc/nsswitch.conf \
- && rm -rf glibc.apk glibc-bin.apk
-
-# Now let's install Bitcoin Core
-
+# Install Bitcoin Core
 ARG CORE_VERSION="0.16.3"
 ENV TARBALL bitcoin-${CORE_VERSION}-arm-linux-gnueabihf.tar.gz
 ENV URL https://bitcoincore.org/bin/bitcoin-core-${CORE_VERSION}
@@ -33,5 +20,13 @@ RUN wget ${URL}/SHA256SUMS.asc \
  && tar -xzC . -f ${TARBALL} bitcoin-${CORE_VERSION}/bin/bitcoind bitcoin-${CORE_VERSION}/bin/bitcoin-cli --strip-components=2 \
  && rm -rf ${TARBALL} SHA256SUMS.asc \
  && apk del gnupg
+
+# Copy Start Script.
+COPY "start-bitcoind.sh" .
+RUN chmod +x start-bitcoind.sh
+
+# Copy Data & Create Volume.
+COPY "data" "data"
+VOLUME ["/data"]
 
 EXPOSE 8332 8333 18332 18333 29000

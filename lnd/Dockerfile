@@ -1,14 +1,13 @@
-FROM golang:1.10-alpine as builder
+FROM alpine
 
-## Install Lightning.
+# Install LND
+
 RUN apk update \
-	&&  apk upgrade \
-	&&  apk add make \
-	&&  apk add git \
-	&&  go get -d github.com/lightningnetwork/lnd \
-	&&  cd /go/src/github.com/lightningnetwork/lnd \
-	&&  make \
-	&&  make install
+	&& apk --no-cache add wget ca-certificates tar \
+	&& wget https://github.com/lightningnetwork/lnd/releases/download/v0.5-beta/lnd-linux-armv7-v0.5-beta.tar.gz \
+	&& tar -xzC . -f lnd-linux-armv7-v0.5-beta.tar.gz \
+	&& mv lnd-linux-armv7-v0.5-beta/* /usr/local/bin/ \
+	&& apk del wget ca-certificates tar
 
 ## Add bash.
 RUN apk add --no-cache bash
