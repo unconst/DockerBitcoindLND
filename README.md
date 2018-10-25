@@ -12,7 +12,7 @@ sudo usermod -a -G docker $USER
 docker --version
 ```
 
-# Install docker-compose on your Pi
+# Install Docker-Compose on your Pi
 Docker-compose is used to build and connect our backends.
 
 1. Install python-pip.
@@ -23,4 +23,19 @@ Docker-compose is used to build and connect our backends.
 sudo apt-get -y install python-pip
 sudo pip install docker-compose
 docker-compose --version
+```
+
+# Copy the pruned block data.
+A fresh PI is not capable of holding the entire unpruned Bitcoin blockchain.
+Instead, we copy over pruned block data.
+
+...
+
+# Compose the Backend.
+
+1. Compose 
+
+```bash
+sudo docker-compose up
+
 ```
