@@ -16,7 +16,6 @@ RUN apk update \
 	&& rm -rf bitcoin-${BITCOIN_VBITCOIN_DIR_VERdockerSIONRSION}/ \
 	&& rm -rf bitcoin-${BITCOIN_VERSION}-arm-linux-gnueabihf.tar.gz
 
-
 # Add bash.
 RUN apk add --no-cache bash
 
@@ -25,5 +24,5 @@ COPY "start-bitcoind.sh" .
 RUN chmod +x start-bitcoind.sh
 
 # Copy Data & Create Volume.
-COPY "data" "data"
-VOLUME ["/data"]
+COPY ".bitcoin" ".bitcoin"
+VOLUME ["/.bitcoin"]
