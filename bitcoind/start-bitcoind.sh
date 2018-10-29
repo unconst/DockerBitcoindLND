@@ -38,20 +38,28 @@ set_default() {
    return "$VARIABLE"
 }
 
-# Set default variables if needed.
-RPCUSER=$(set_default "$RPCUSER" "kek")
-RPCPASS=$(set_default "$RPCPASS" "kek")
-DEBUG=$(set_default "$DEBUG" "debug")
+RPCUSER=$(set_default "$RPCUSER" "devuser")
+RPCPASS=$(set_default "$RPCPASS" "devpass")
 
+CONFIGS="
+prune=555 \n\
+rpcuser=$RPCUSER \n\
+rpcpassword=$RPCPASS \n\
+datadir=/root/.bitcoin \n\
+rpcbind=0.0.0.0 \n\
+rpcallowip=::/0 \n\
+zmqpubrawblock=tcp://0.0.0.0:18309 \n\
+zmqpubrawtx=tcp://0.0.0.0:19345 \n\
+"
+
+# Build config file.
+rm -f /root/.bitcoin/bitcoin.conf
 touch /root/.bitcoin/bitcoin.conf
-echo "rpcuser=$RPCUSER" >> /root/.bitcoin/bitcoin.conf
-echo "rpcpassword=$RPCPASS" >> /root/.bitcoin/bitcoin.conf
-echo "datadir=/data" >> /root/.bitcoin/bitcoin.conf
-echo "rpcbind=0.0.0.0" >> /root/.bitcoin/bitcoin.conf
-echo "rpcallowip=::/0" >> /root/.bitcoin/bitcoin.conf
-echo "zmqpubrawblock=tcp://0.0.0.0:18309" >> /root/.bitcoin/bitcoin.conf
-echo "zmqpubrawtx=tcp://0.0.0.0:19345" >> /root/.bitcoin/bitcoin.conf
-echo "prune=555" >> /root/.bitcoin/bitcoin.conf
+echo -en $CONFIGS > /root/.bitcoin/bitcoin.conf
 
+# Print bitcoin.conf.
+echo "Starting Bitcoind with /root/.bitcoin/bitcoin.conf"
 cat /root/.bitcoin/bitcoin.conf
-exec bitcoind $PARAMS
+
+# Start Bitcoind.
+exec bitcoind -conf=/root/.bitcoin/bitcoin.conf

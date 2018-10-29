@@ -38,33 +38,33 @@ set_default() {
    return "$VARIABLE"
 }
 
-# Set default variables if needed.
-RPCUSER=$(set_default "$RPCUSER" "kek")
-RPCPASS=$(set_default "$RPCPASS" "kek")
+RPCUSER=$(set_default "$RPCUSER" "devuser")
+RPCPASS=$(set_default "$RPCPASS" "devpass")
 DEBUG=$(set_default "$DEBUG" "debug")
 
-PARAMS=$(echo \
-    --noseedbackup \
-    --logdir="/data" \
-    --bitcoin.active \
-    --bitcoin.mainnet \
-    --bitcoin.node=bitcoind \
-    --bitcoind.rpchost=bitcoind_container \
-    --bitcoind.rpcuser="$RPCUSER" \
-    --bitcoind.rpcpass="$RPCPASS" \
-    --bitcoind.zmqpubrawblock=tcp://bitcoind_container:18309 \
-    --bitcoind.zmqpubrawtx=tcp://bitcoind_container:19345 \
-    --debuglevel="$DEBUG" \
-)
 
-# Add user parameters to command.
-PARAMS="$PARAMS $@"
+CONFIGS="
+logdir=/root/.lnd/logs \n\
+datadir=/root/.lnd/data \n\
+bitcoin.active=1 \n\
+bitcoin.mainnet=1 \n\
+bitcoin.node=bitcoind \n\
+bitcoind.rpchost=bitcoind_container \n\
+bitcoind.rpcuser=$RPCUSER \n\
+bitcoind.rpcpass=$RPCPASS \n\
+bitcoind.zmqpubrawblock=tcp://bitcoind_container:18309 \n\
+bitcoind.zmqpubrawtx=tcp://bitcoind_container:19345 \n\
+debuglevel=$DEBUG \n
+"
 
-# Print command and start bitcoin node.
-echo "Command: lnd $PARAMS"
+# Build config file.
+rm -f /root/.lnd/lnd.conf
+touch /root/.lnd/lnd.conf
+echo -en $CONFIGS > /root/.lnd/lnd.conf
 
-# Sleep 10, wait for Bitcoind to start up.
-sleep 30
+# Print bitcoin.conf.
+echo "Starting LND with /root/.lnd/lnd.conf"
+cat /root/.lnd/lnd.conf
 
-# Run LND deamon
-exec lnd $PARAMS
+# Start LND
+exec lnd --configfile=/root/.lnd/lnd.conf

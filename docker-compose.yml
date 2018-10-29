@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 services:
 
     # btc is an image of bitcoin node which used as base image for btcd and
@@ -10,7 +10,7 @@ services:
             context: bitcoind/
         container_name: bitcoind_container
         volumes:
-            - bitcoind_volume:/data
+            - bitcoind_volume:/.bitcoin
         environment:
             - RPCUSER
             - RPCPASS
@@ -22,6 +22,8 @@ services:
         build:
             context: lnd/
         container_name: lnd_container
+        volumes:
+          - lnd_volume:/root/.lnd
         depends_on:
             - bitcoind_service
         environment:
@@ -35,4 +37,9 @@ volumes:
   # bitcoin volume is needed for maintaining blockchain persistence
   # during bitcoind container recreation.
   bitcoind_volume:
+    driver: local
+
+  # lnd volume is needed for maintaining lightningnetwork persistence
+  # during container recreation.
+  lnd_volume:
     driver: local
