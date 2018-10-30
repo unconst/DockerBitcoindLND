@@ -116,6 +116,10 @@ unzip bitcoind/bitcoin.zip -d bitcoind/bitcoin
 ```
 
 # 8. Build LND and Bitcoin config envirnoment variable.
+
+1. Set BITCOIN_CONFIGs
+1. Set LND_CONFIGs
+
 ```bash
 export BITCOIN_CONFIG="`sed -E 's/$/\\\n/g' bitcoind/bitcoin.conf`"
 export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
@@ -123,10 +127,14 @@ export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
 
 # 9. Compose the Backend.
 
-1. Compose
+1. Compose and build the containers.
+1. Alias the lncli.
+1. Alias the bitcoind cli.
 
 ```bash
 sudo docker-compose up --build
 alias lndcli='docker exec -i -o lnd_container lncli'
 alias bitcoin-cli='docker exec -i -o bitcoind_container bitcoin-cli'
 ```
+
+# Wait for LND and Bitcoind to finish syncing.
