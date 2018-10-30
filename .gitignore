@@ -1,4 +1,4 @@
-.bitcoin/*
-bitcoind/.bitcoin/*
+bitcoin/*
+bitcoind/bitcoin/*
 lnd/*
-lnd/.lnd/*
+lnd/lnd/*
