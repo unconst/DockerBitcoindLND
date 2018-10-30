@@ -1,1 +1,4 @@
-bitcoind/data/*
+.bitcoin/*
+bitcoind/.bitcoin/*
+lnd/*
+lnd/.lnd/*
