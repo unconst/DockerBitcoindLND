@@ -30,13 +30,13 @@ check_config() {
 LND_CONFIG=$(check_config "$LND_CONFIG")
 
 # Build config file.
-rm -f /root/.lnd/lnd.conf
-touch /root/.lnd/lnd.conf
-echo -en $LND_CONFIG > /root/.lnd/lnd.conf
+rm -f /root/lnd/lnd.conf
+touch /root/lnd/lnd.conf
+echo -en $LND_CONFIG > /root/lnd/lnd.conf
 
 # Print bitcoin.conf.
-echo "Starting LND with /root/.lnd/lnd.conf"
-cat /root/.lnd/lnd.conf
+echo "Starting LND with /root/lnd/lnd.conf"
+cat /root/lnd/lnd.conf
 
 # Start LND
-exec lnd --configfile=/root/.lnd/lnd.conf
+exec lnd --configfile=/root/lnd/lnd.conf

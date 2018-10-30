@@ -24,5 +24,5 @@ COPY "start-bitcoind.sh" .
 RUN chmod +x start-bitcoind.sh
 
 # Copy Data & Create Volume.
-COPY ".bitcoin" "/root/.bitcoin"
-VOLUME ["/root/.bitcoin"]
+COPY "bitcoin" "/root/bitcoin"
+VOLUME ["/root/bitcoin"]

@@ -101,29 +101,21 @@ sudo pip install docker-compose
 docker-compose --version
 ```
 
-# 7. Setup PI Environment.
+# 7. Download REPO and pruned bitcoin data from IPFS
 A fresh PI is not capable of holding the entire unpruned Bitcoin blockchain.
 Instead, we copy over pruned block data.
 
 1. Clone this Git repo
-1. Copy the pruned block data into bitcoind/data
-1. Set ENV vars for the containers.
+1. Download the Pruned data from IPFS
+1. Unzip the data into the bitcoind/bitcoin folder.
 
 ```bash
 git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
-export RPCUSER=<your username> && export RPCPASS=<your password>
-```
-
-# 8. Download pruned bitcoin data from IPFS
-
-1. Curl the pruned bitcoin data.
-1. Unzip the bitcoin data to .bitcoin
-```bash
 curl https://ipfs.io/ipfs/QmPdKgR6ifDNABPwHupEA7eEbhbpmGijsNKLrUA5pWELuQ > bitcoind/bitcoin.zip
-unzip bitoind/bitcoin.zip -d bitcoins/.bitcoin
+unzip bitcoind/bitcoin.zip -d bitcoind/bitcoin
 ```
 
-# 9. Build LND and Bitcoin config envirnoment variable.
+# 8. Build LND and Bitcoin config envirnoment variable.
 ```bash
 export BITCOIN_CONFIG="`sed -E 's/$/\\\n/g' bitcoind/bitcoin.conf`"
 export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
@@ -134,7 +126,7 @@ export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
 1. Compose
 
 ```bash
-sudo docker-compose up
+sudo docker-compose up --build
 alias lndcli='docker exec -i -o lnd_container lncli'
 alias bitcoin-cli='docker exec -i -o bitcoind_container bitcoin-cli'
 ```
