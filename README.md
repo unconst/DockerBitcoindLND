@@ -111,15 +111,24 @@ Instead, we copy over pruned block data.
 
 ```bash
 git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
-mkdir -p bitcoind/data && cp -r ~/.bitcoin/* bitcoind/data/
 export RPCUSER=<your username> && export RPCPASS=<your password>
 ```
 
-# 8. Compose the Backend.
+# 8. Download pruned bitcoin data from IPFS
+
+1. Curl the pruned bitcoin data.
+1. Unzip the bitcoin data to .bitcoin
+```bash
+curl https://ipfs.io/ipfs/QmPdKgR6ifDNABPwHupEA7eEbhbpmGijsNKLrUA5pWELuQ > bitcoind/bitcoin.zip
+unzip bitoind/bitcoin.zip -d bitcoins/.bitcoin
+```
+
+# 9. Compose the Backend.
 
 1. Compose
 
 ```bash
 sudo docker-compose up
-alias
+alias lndcli='docker exec -i -o lnd_container lncli'
+alias bitcoin-cli='docker exec -i -o bitcoind_container bitcoin-cli'
 ```
