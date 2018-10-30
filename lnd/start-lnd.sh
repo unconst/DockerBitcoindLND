@@ -15,52 +15,24 @@ return() {
     echo "$1"
 }
 
-# set_default function gives the ability to move the setting of default
-# env variable from docker file to the script thereby giving the ability to the
-# user override it durin container start.
-set_default() {
-    # docker initialized env variables with blank string and we can't just
-    # use -z flag as usually.
+
+check_config() {
     BLANK_STRING='""'
+    LND_CONFIG_VAR="$1"
 
-    VARIABLE="$1"
-    DEFAULT="$2"
-
-    if [[ -z "$VARIABLE" || "$VARIABLE" == "$BLANK_STRING" ]]; then
-
-        if [ -z "$DEFAULT" ]; then
-            error "You should specify default variable"
-        else
-            VARIABLE="$DEFAULT"
-        fi
+    if [[ -z "$LND_CONFIG_VAR" || "$LND_CONFIG_VAR" == "$BLANK_STRING" ]]; then
+    	error "You must specify your LND_CONFIG environment variable. Make sure you have set the LND_CONFIG environment variable"
     fi
 
-   return "$VARIABLE"
+   return "$LND_CONFIG_VAR"
 }
 
-RPCUSER=$(set_default "$RPCUSER" "devuser")
-RPCPASS=$(set_default "$RPCPASS" "devpass")
-DEBUG=$(set_default "$DEBUG" "debug")
-
-
-CONFIGS="
-logdir=/root/.lnd/logs \n\
-datadir=/root/.lnd/data \n\
-bitcoin.active=1 \n\
-bitcoin.mainnet=1 \n\
-bitcoin.node=bitcoind \n\
-bitcoind.rpchost=bitcoind_container \n\
-bitcoind.rpcuser=$RPCUSER \n\
-bitcoind.rpcpass=$RPCPASS \n\
-bitcoind.zmqpubrawblock=tcp://bitcoind_container:18309 \n\
-bitcoind.zmqpubrawtx=tcp://bitcoind_container:19345 \n\
-debuglevel=$DEBUG \n
-"
+LND_CONFIG=$(check_config "$LND_CONFIG")
 
 # Build config file.
 rm -f /root/.lnd/lnd.conf
 touch /root/.lnd/lnd.conf
-echo -en $CONFIGS > /root/.lnd/lnd.conf
+echo -en $LND_CONFIG > /root/.lnd/lnd.conf
 
 # Print bitcoin.conf.
 echo "Starting LND with /root/.lnd/lnd.conf"

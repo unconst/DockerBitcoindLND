@@ -123,6 +123,12 @@ curl https://ipfs.io/ipfs/QmPdKgR6ifDNABPwHupEA7eEbhbpmGijsNKLrUA5pWELuQ > bitco
 unzip bitoind/bitcoin.zip -d bitcoins/.bitcoin
 ```
 
+# 9. Build LND and Bitcoin config envirnoment variable.
+```bash
+export BITCOIN_CONFIG="`sed -E 's/$/\\\n/g' bitcoind/bitcoin.conf`"
+export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
+```
+
 # 9. Compose the Backend.
 
 1. Compose

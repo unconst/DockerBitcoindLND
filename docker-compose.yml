@@ -12,8 +12,7 @@ services:
         volumes:
             - bitcoind_volume:/.bitcoin
         environment:
-            - RPCUSER
-            - RPCPASS
+            - BITCOIN_CONFIG=${BITCOIN_CONFIG}
         restart: always
         entrypoint: ["./start-bitcoind.sh"]
 
@@ -27,9 +26,7 @@ services:
         depends_on:
             - bitcoind_service
         environment:
-            - RPCUSER
-            - RPCPASS
-            - DEBUG
+            - LND_CONFIG=${LND_CONFIG}
         restart: always
         entrypoint: ["./start-lnd.sh"]
 
