@@ -1,4 +1,5 @@
-bitcoin/*
 bitcoind/bitcoin/*
-lnd/*
+!bitcoind/bitcoin/.gitkeep 
+
 lnd/lnd/*
+!lnd/lnd/.gitkeep
