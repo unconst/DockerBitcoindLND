@@ -23,6 +23,6 @@ RUN apk add --no-cache bash
 COPY "start-bitcoind.sh" .
 RUN chmod +x start-bitcoind.sh
 
-# Copy Data & Create Volume.
-COPY "bitcoin" "/root/bitcoin"
+# Create Volume.
+RUN mkdir -p /root/bitcoin
 VOLUME ["/root/bitcoin"]

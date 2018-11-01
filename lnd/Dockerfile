@@ -15,6 +15,6 @@ RUN apk add --no-cache bash
 COPY "start-lnd.sh" .
 RUN chmod +x start-lnd.sh
 
-# Copy Data & Create Volume.
-COPY "lnd" "/root/lnd"
+# Create LND Volume.
+RUN mkdir -p /root/lnd
 VOLUME ["/root/lnd"]

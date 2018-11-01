@@ -1,24 +1,18 @@
 version: '3.3'
 services:
 
-    # btc is an image of bitcoin node which used as base image for btcd and
-    # btccli. The environment variables default values determined on stage of
-    # container start within starting script.
     bitcoind_service:
         image: bitcoind_image
         build:
             context: bitcoind/
         container_name: bitcoind_container
         volumes:
-            - type: volume
-              source: bitcoind_volume
-              target: /root/bitcoin
-              volume:
-                nocopy: true
+            - ./bitcoind/bitcoin:/root/bitcoin
         environment:
             - BITCOIN_CONFIG=${BITCOIN_CONFIG}
         restart: always
         entrypoint: ["./start-bitcoind.sh"]
+
 
     lnd_service:
         image: lnd_image
@@ -26,7 +20,7 @@ services:
             context: lnd/
         container_name: lnd_container
         volumes:
-          - lnd_volume:/root/lnd
+          - ./lnd/lnd:/root/lnd
         depends_on:
             - bitcoind_service
         environment:
@@ -34,13 +28,3 @@ services:
         restart: always
         entrypoint: ["./start-lnd.sh"]
 
-volumes:
-  # bitcoin volume is needed for maintaining blockchain persistence
-  # during bitcoind container recreation.
-  bitcoind_volume:
-    driver: local
-
-  # lnd volume is needed for maintaining lightningnetwork persistence
-  # during container recreation.
-  lnd_volume:
-    driver: local
