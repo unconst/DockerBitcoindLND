@@ -10,7 +10,11 @@ services:
             context: bitcoind/
         container_name: bitcoind_container
         volumes:
-            - bitcoind_volume:/root/bitcoin
+            - type: volume
+              source: bitcoind_volume
+              target: /root/bitcoin
+              volume:
+                nocopy: true
         environment:
             - BITCOIN_CONFIG=${BITCOIN_CONFIG}
         restart: always
