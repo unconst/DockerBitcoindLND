@@ -10,7 +10,6 @@ RUN apk update \
 	&& apk --no-cache add wget ca-certificates \
 	&& wget https://bitcoin.org/bin/bitcoin-core-${BITCOIN_VERSION}/bitcoin-${BITCOIN_VERSION}-arm-linux-gnueabihf.tar.gz \
 	&& tar xzvf bitcoin-${BITCOIN_VERSION}-arm-linux-gnueabihf.tar.gz \
-	&& mkdir /root/.bitcoin \
 	&& apk del wget ca-certificates tzdata \
 	&& mv bitcoin-${BITCOIN_DIR_VERSION}/bin/* /usr/local/bin/ \
 	&& rm -rf bitcoin-${BITCOIN_VBITCOIN_DIR_VERdockerSIONRSION}/ \
@@ -24,5 +23,5 @@ COPY "start-bitcoind.sh" .
 RUN chmod +x start-bitcoind.sh
 
 # Create Volume.
-RUN mkdir -p /root/bitcoin
-VOLUME ["/root/bitcoin"]
+RUN mkdir -p /root/.bitcoin
+VOLUME ["/root/.bitcoin"]

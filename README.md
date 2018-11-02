@@ -70,8 +70,8 @@ export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
 
 ```bash
 sudo docker-compose up --build
-alias lndcli='docker exec -i lnd_container lncli'
-alias bitcoin-cli='docker exec -i bitcoind_container bitcoin-cli'
+alias lndcli='docker exec -i -t lnd_container lncli'
+alias bitcoin-cli='docker exec -i -t bitcoind_container bitcoin-cli'
 ```
 
 # 6. Wait for Nodes to sync.

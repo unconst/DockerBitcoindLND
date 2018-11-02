@@ -7,7 +7,7 @@ services:
             context: bitcoind/
         container_name: bitcoind_container
         volumes:
-            - ./bitcoind/bitcoin:/root/bitcoin
+            - ./bitcoind/bitcoin:/root/.bitcoin
         environment:
             - BITCOIN_CONFIG=${BITCOIN_CONFIG}
         restart: always
@@ -20,7 +20,7 @@ services:
             context: lnd/
         container_name: lnd_container
         volumes:
-          - ./lnd/lnd:/root/lnd
+          - ./lnd/lnd:/root/.lnd
         depends_on:
             - bitcoind_service
         environment:

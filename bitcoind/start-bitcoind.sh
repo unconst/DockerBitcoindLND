@@ -29,13 +29,13 @@ check_config() {
 BITCOIN_CONFIG=$(check_config "$BITCOIN_CONFIG")
 
 # Build config file.
-rm -f /root/bitcoin/bitcoin.conf
-touch /root/bitcoin/bitcoin.conf
-echo -en $BITCOIN_CONFIG > /root/bitcoin/bitcoin.conf
+rm -f /root/.bitcoin/bitcoin.conf
+touch /root/.bitcoin/bitcoin.conf
+echo -en $BITCOIN_CONFIG > /root/.bitcoin/bitcoin.conf
 
 # Print bitcoin.conf.
-echo "Starting Bitcoind with /root/bitcoin/bitcoin.conf"
-cat /root/bitcoin/bitcoin.conf
+echo "Starting Bitcoind with /root/.bitcoin/bitcoin.conf"
+cat /root/.bitcoin/bitcoin.conf
 
 # Start Bitcoind.
-exec bitcoind -conf=/root/bitcoin/bitcoin.conf
+exec bitcoind -conf=/root/.bitcoin/bitcoin.conf

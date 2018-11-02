@@ -16,5 +16,5 @@ COPY "start-lnd.sh" .
 RUN chmod +x start-lnd.sh
 
 # Create LND Volume.
-RUN mkdir -p /root/lnd
-VOLUME ["/root/lnd"]
+RUN mkdir -p /root/.lnd
+VOLUME ["/root/.lnd"]
