@@ -13,7 +13,7 @@ echo "Done."
 
 echo "Downloading Bitcoin Pruned Data."
 git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
-curl https://ipfs.io/ipfs/QmPdKgR6ifDNABPwHupEA7eEbhbpmGijsNKLrUA5pWELuQ > bitcoin.zip
+curl https://ipfs.io/ipfs/QmYDozABzrQegRrBkiNu2L53koEaHTEm1pGdhMjMzh3E4F > bitcoin.zip
 unzip bitcoin.zip -d bitcoind/bitcoin
 echo "Done."
 
