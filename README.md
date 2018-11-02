@@ -54,12 +54,16 @@ unzip bitcoin.zip -d bitcoind/bitcoin
 The configs for Lnd and Bitcoind are stored in bitcoind/bitcoin.conf and lnd/lnd.conf. We pipe these into the docker containers using environment variables.
 In order to change the configs, merely edit them and rerun the commands below.
 
-1. Set BITCOIN_CONFIG
-1. Set LND_CONFIG
+1. Add BITCOIN_CONFIG and LND_CONFIG to you ~/.bashrc 
 
-```bash
+```Add to your ~/.bashrc
 export BITCOIN_CONFIG="`sed -E 's/$/\\\n/g' bitcoind/bitcoin.conf`"
 export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
+```
+```bash
+source ~/.bashrc
+echo -en $LND_CONFIG
+echo -en $BITCOIN_CONFIG
 ```
 
 # 5. Compose the Backend.
