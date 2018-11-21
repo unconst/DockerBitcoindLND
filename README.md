@@ -1,4 +1,5 @@
-This repo contains the code and steps needed to set up a lightning and Bitcoin Node on a Raspberry Pi micro computer.
+This repo contains the a docker-compose.yml and corresponding Dockerfiles which together run a lightning node over a local pruned Bitcoin Node on a Raspberry Pi micro computer. Phew!
+Very useful for setting uo small micro services which can accept and make lightning payments. Hope you enjoy.
 
 # 0. Required Equipment
 1. Raspberry Pi3 (Pi) with internet connectivity.
@@ -8,10 +9,9 @@ This repo contains the code and steps needed to set up a lightning and Bitcoin N
 **Note** Steps for setting up a Pi are in pi-README.md 
 
 # 1. Install Docker on your Pi.
-We use Docker on our Raspberry Pi because it allows us to containerize the our
-LND and Bitcoind background services.
+Docker is used to contanerize the LND and Bitcoind background services.
 
-1. Install Docker on our Pi.
+1. Install Docker..
 1. Add the current user (pi) into the docker user group.
 1. Confirm the install.
 
@@ -51,20 +51,8 @@ unzip bitcoin.zip -d bitcoind/bitcoin
 ```
 
 # 4. Build LND and Bitcoin config envirnoment variable.
-The configs for Lnd and Bitcoind are stored in bitcoind/bitcoin.conf and lnd/lnd.conf. We pipe these into the docker containers using environment variables.
-In order to change the configs, merely edit them and rerun the commands below.
+The configs for Lnd and Bitcoind are stored in bitcoind/bitcoin.conf and lnd/lnd.conf. 
 
-1. Add BITCOIN_CONFIG and LND_CONFIG to you ~/.bashrc 
-
-```Add to your ~/.bashrc
-export BITCOIN_CONFIG="`sed -E 's/$/\\\n/g' bitcoind/bitcoin.conf`"
-export LND_CONFIG="`sed -E 's/$/\\\n/g' lnd/lnd.conf`"
-```
-```bash
-source ~/.bashrc
-echo -en $LND_CONFIG
-echo -en $BITCOIN_CONFIG
-```
 
 # 5. Compose the Backend.
 

@@ -15,28 +15,9 @@ return() {
     echo "$1"
 }
 
-
-check_config() {
-    BLANK_STRING='""'
-    LND_CONFIG_VAR="$1"
-
-    if [[ -z "$LND_CONFIG_VAR" || "$LND_CONFIG_VAR" == "$BLANK_STRING" ]]; then
-    	error "You must specify your LND_CONFIG environment variable. Make sure you have set the LND_CONFIG environment variable"
-    fi
-
-   return "$LND_CONFIG_VAR"
-}
-
-LND_CONFIG=$(check_config "$LND_CONFIG")
-
-# Build config file.
-rm -f /root/.lnd/lnd.conf
-touch /root/.lnd/lnd.conf
-echo -en $LND_CONFIG > /root/.lnd/lnd.conf
-
 # Print bitcoin.conf.
-echo "Starting LND with /root/.lnd/lnd.conf"
-cat /root/.lnd/lnd.conf
+echo "Starting LND with /root/lnd.conf"
+cat /root/lnd.conf
 
 # Start LND
-exec lnd --configfile=/root/.lnd/lnd.conf
+exec lnd --configfile=/root/lnd.conf

@@ -15,27 +15,9 @@ return() {
     echo "$1"
 }
 
-check_config() {
-    BLANK_STRING='""'
-    BITCOIN_CONFIG_VAR="$1"
 
-    if [[ -z "$BITCOIN_CONFIG_VAR" || "$BITCOIN_CONFIG_VAR" == "$BLANK_STRING" ]]; then
-    	error "You must specify your BITCOIN_CONFIG environment variable. Make sure you have set the BITCOIN_CONFIG environment variable"
-    fi
-
-   return "$BITCOIN_CONFIG_VAR"
-}
-
-BITCOIN_CONFIG=$(check_config "$BITCOIN_CONFIG")
-
-# Build config file.
-rm -f /root/.bitcoin/bitcoin.conf
-touch /root/.bitcoin/bitcoin.conf
-echo -en $BITCOIN_CONFIG > /root/.bitcoin/bitcoin.conf
-
-# Print bitcoin.conf.
-echo "Starting Bitcoind with /root/.bitcoin/bitcoin.conf"
-cat /root/.bitcoin/bitcoin.conf
+echo "Starting Bitcoind with /root/bitcoin.conf"
+cat /root/bitcoin.conf
 
 # Start Bitcoind.
-exec bitcoind -conf=/root/.bitcoin/bitcoin.conf
+exec bitcoind -conf=/root/bitcoin.conf
