@@ -46,7 +46,7 @@ It is better to sync and prune your own files and copy them across.
 
 ```bash
 git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
-curl https://ipfs.io/ipfs/QmYDozABzrQegRrBkiNu2L53koEaHTEm1pGdhMjMzh3E4F > bitcoin.zip
+# DOWNLOAD THE PRUNED DATA (HOWEVER YOU WANT) into bitcoin.zip
 unzip bitcoin.zip -d bitcoind/bitcoin
 ```
 
