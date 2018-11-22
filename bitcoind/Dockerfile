@@ -13,7 +13,8 @@ RUN apk update \
 	&& apk del wget ca-certificates tzdata \
 	&& mv bitcoin-${BITCOIN_DIR_VERSION}/bin/* /usr/local/bin/ \
 	&& rm -rf bitcoin-${BITCOIN_VBITCOIN_DIR_VERdockerSIONRSION}/ \
-	&& rm -rf bitcoin-${BITCOIN_VERSION}-arm-linux-gnueabihf.tar.gz
+	&& rm -rf bitcoin-${BITCOIN_VERSION}-arm-linux-gnueabihf.tar.gz \
+    && apk add bash
 
 # Create a bitcoin volume at /root/.bitcoin. This folder stores chainstate, wallets, mempool etc.
 # We mount the folder bitcoind/bitcoin into this volume during start up which keeps those two folders
