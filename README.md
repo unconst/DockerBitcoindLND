@@ -1,5 +1,5 @@
 This repo contains the Docker-Compose and corresponding Docker files which together run go-lightning over a local and pruned Bitcoind instance on a Raspberry Pi micro computer. Phew!
-Very useful for setting uo small micro services which can accept and make lightning payments. Hope you enjoy.
+Very useful for setting up small micro services which can accept and make lightning payments. Hope you enjoy.
 
 # 0. Required Equipment
 1. Raspberry Pi3 (Pi) with internet connectivity.
