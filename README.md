@@ -47,7 +47,7 @@ It is better to sync and prune your own files and copy them across.
 ```bash
 git clone https://github.com/unconst/DockerBitcoindLND.git && cd DockerBitcoinLND
 # DOWNLOAD THE PRUNED DATA (HOWEVER YOU WANT) into bitcoin.zip
-unzip bitcoin.zip -d bitcoind/bitcoin
+unzip bitcoin.zip -d bitcoind/bitcoin_data
 ```
 
 # 4. Build LND and Bitcoin config envirnoment variable.
@@ -62,8 +62,8 @@ The configs for Lnd and Bitcoind are stored in bitcoind/bitcoin.conf and lnd/lnd
 
 ```bash
 sudo docker-compose up --build
-alias lndcli='docker exec -i -t lnd_container lncli'
-alias bitcoin-cli='docker exec -i -t bitcoind_container bitcoin-cli'
+sudo alias lndcli='docker exec -i -t lnd_container lncli'
+sudo alias bitcoin-cli='docker exec -i -t bitcoind_container bitcoin-cli'
 ```
 
 # 6. Wait for Nodes to sync.
@@ -71,6 +71,7 @@ After this step you will need to wait for the Bitcoin container to finish syncin
 
 ```bash
 docker logs bitcoind_container
+docker logs lnd_container
 ```
 
 

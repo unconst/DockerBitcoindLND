@@ -16,4 +16,4 @@ VOLUME ["/root/.lnd"]
 # start-lnd.sh pipes the LND_CONFIG env variable into /root/.lnd/lnd.conf before starting lnd.
 COPY "start-lnd.sh" .
 RUN chmod +x start-lnd.sh
-COPY "lnd/lnd.conf" "/root/lnd.conf"
+COPY "lnd.conf" "/root/lnd.conf"
