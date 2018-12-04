@@ -1,10 +1,11 @@
-This repo contains the Docker-Compose and corresponding Docker files which together run go-lightning over a local and pruned Bitcoind instance on a Raspberry Pi micro computer. Phew!
-Very useful for setting up small micro services which can accept and make lightning payments. Hope you enjoy.
+# What's this?
+This repo contains the Docker tools for running go-lightning over a local + pruned Bitcoind instance on a Raspberry Pi. Very useful for setting up small micro services which can accept and make lightning payments. Hope you enjoy.
 
 # 0. Required Equipment
-1. Raspberry Pi3 (Pi) with internet connectivity.
+1. Raspberry Pi3 (Pi) with internet connectivity. (see: pi-README.md for help)
 1. Docker (Step 1)
 1. Docker-Compose (Step 2)
+1. This Repo + prunned Bitcoin data.
 
 **Note** Steps for setting up a Pi are in pi-README.md 
 
@@ -26,19 +27,19 @@ Docker-compose is used to build and connect our backends.
 
 1. Install python-pip.
 1. Pip install docker-compose.
+1. Add the current user (pi) into the docker-compose user group
 1. Confirm the install.
 
 ```bash
 sudo apt-get -y install python-pip
 sudo pip install docker-compose
+sudo usermod -a -G docker-compose $USER
 docker-compose --version
 ```
 
 # 3. Download this reposititory and pruned bitcoin data 
 A fresh PI is not capable of holding the entire unpruned Bitcoin blockchain.
-Instead, to speed up the process of syncing the blockchain we pull a pruned version from IPFS.
-**Note** it is dangerous to use our pruned data since we could have corrupted the pruned files.
-It is better to sync and prune your own files and copy them across.
+Instead, to speed up the process of syncing the blockchain we pull a pruned version from somewhere else (i.e. your desktop). **Note** it is dangerous to use **our** pruned data since we could have corrupted the pruned files. It is better to sync and prune your own files and copy them across.
 
 1. Clone this Git repo
 1. Download the Pruned data from another computer.
@@ -70,6 +71,4 @@ docker logs bitcoind_container
 docker logs lnd_container
 ```
 
-
-
-
+:wq
