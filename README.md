@@ -5,7 +5,7 @@ This repo contains the Docker tools for running go-lightning over a local + prun
 1. Raspberry Pi3 (Pi) with internet connectivity. (see: pi-README.md for help)
 1. Docker (Step 1)
 1. Docker-Compose (Step 2)
-1. This Repo + prunned Bitcoin data.
+1. This Repo + prunned Bitcoin data. (Step 3)
 
 **Note** Steps for setting up a Pi are in pi-README.md 
 
